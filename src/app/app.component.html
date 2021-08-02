@@ -1,9 +1,25 @@
-<input />
-<button (click)="generateColorBoxes()">Generate</button>
+<h1>Please size and click generate!</h1>
+<div class="select-color">
+  <select [(ngModel)]="selectedSize">
+    <option *ngFor="let size of sizes" [ngValue]="size">
+      {{size}}
+    </option>
+  </select>
+  <button class="btn" (click)="generateColorBoxes()">Generate</button>
+  <button class="btn" (click)="reset()">Reset</button>
+</div>
+<div *ngIf="colors.length > 0"  class="select-color">
+  <input type="color" [(ngModel)]="currentColor" />
+  <p>Select Color and click to circles to paint it!</p>
+</div>
 <div class="container">
   <div
-    *ngFor="let boxes of colors"
+    *ngFor="let box of colors"
     class="color-box"
-    [ngStyle]="styleObject()"
+    (click)="changeColor(box)"
+    [ngStyle]="{
+      width: boxSize + '%',
+      'background-color': box.color
+    }"
   ></div>
 </div>
